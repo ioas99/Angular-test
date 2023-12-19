@@ -1,0 +1,86 @@
+  <div class="container mt-5 pb-5">
+    <div class="row">
+
+    <div class="col-md-12">
+    <div class="card">
+      <div class="card-header">
+        Contact
+      </div>
+      <div class="card-body">
+
+        <form id="contactForm" [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+
+          <!-- Name input -->
+          <div class="mb-3">
+            <label class="form-label" for="name">Name</label>
+            <input formControlName="name" class="form-control" id="name" type="text" placeholder="Name" />
+            <div *ngIf="nameControl.hasError('required') && (nameControl.dirty || nameControl.touched)"
+              class="text-danger">Name is required</div>
+            <div *ngIf="nameControl.hasError('minlength') && (nameControl.dirty || nameControl.touched)"
+              class="text-danger">Name must be at least 3 characters</div>
+            <div *ngIf="nameControl.hasError('maxlength') && (nameControl.dirty || nameControl.touched)"
+              class="text-danger">Name cannot exceed 50 characters</div>
+          </div>
+
+          <!-- Last name input -->
+          <div class="mb-3">
+            <label class="form-label" for="lastName">Last Name</label>
+            <input formControlName="last_name" class="form-control" id="lastName" type="text" placeholder="Last Name" />
+            <div *ngIf="surNameControl.hasError('required') && (surNameControl.dirty || surNameControl.touched)"
+              class="text-danger">Last Name is required</div>
+            <div *ngIf="surNameControl.hasError('minlength') && (surNameControl.dirty || surNameControl.touched)"
+              class="text-danger">Last Name must be at least 3 characters</div>
+            <div *ngIf="surNameControl.hasError('maxlength') && (surNameControl.dirty || surNameControl.touched)"
+              class="text-danger">Last Name cannot exceed 50 characters</div>
+          </div>
+
+          <!-- Email address input -->
+          <div class="mb-3">
+            <label class="form-label" for="emailAddress">Email Address</label>
+            <input formControlName="email" class="form-control" id="emailAddress" type="email"
+              placeholder="Email Address" />
+            <div *ngIf="emailControl.hasError('required') && (emailControl.dirty || emailControl.touched)"
+              class="text-danger">Email is required</div>
+            <div *ngIf="emailControl.hasError('email') && (emailControl.dirty || emailControl.touched)"
+              class="text-danger">Enter a valid email address</div>
+          </div>
+
+          <!-- Phone number input -->
+          <div class="mb-3">
+            <label class="form-label" for="phoneNumber">Phone Number</label>
+            <input formControlName="phone" class="form-control" id="phoneNumber" type="tel"
+              placeholder="Phone Number" />
+            <div *ngIf="phoneControl.hasError('required') && (phoneControl.dirty || phoneControl.touched)"
+              class="text-danger">Phone number is required</div>
+            <div *ngIf="phoneControl.hasError('invalidPhone') && (phoneControl.dirty || phoneControl.touched)"
+              class="text-danger">Enter a valid phone number (10 digits)</div>
+          </div>
+
+          <!-- Comments input -->
+          <div class="mb-3">
+            <label class="form-label" for="message">Message</label>
+            <textarea formControlName="comments" class="form-control" id="message" type="text" placeholder="Message"
+              style="height: 10rem;"></textarea>
+          </div>
+
+          <div class="col-sm-12 mb-2">
+            <re-captcha (resolved)="checkCaptcha($event)" id="recaptcha" formControlName="captcha" [(ngModel)]="token"></re-captcha>
+            <div *ngIf="recaptchaControl.invalid && (recaptchaControl.dirty || recaptchaControl.touched)" class="invalid-feedback">
+              <div *ngIf="recaptchaControl.errors?.['required']">This field is required.</div>
+            </div>
+          </div>
+
+
+          <!-- Form submit button -->
+          <div class="d-grid">
+            <button [disabled]="!captchaResolved || contactForm.invalid" class="btn btn-primary btn-lg" type="submit" [disabled]="contactForm.invalid">Submit</button>
+          </div>
+
+        </form>
+      </div>
+
+    </div>
+    </div>
+    </div>
+
+  </div>
